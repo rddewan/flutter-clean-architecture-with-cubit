@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:todo_app/features/dashboard/presentation/controller/dashboard_controller.dart';
 import 'package:todo_app/features/dashboard/presentation/state/dashboard_state.dart';
 
@@ -36,8 +37,10 @@ class BottomNavigationWidget extends StatelessWidget {
     context.read<DashboardController>().setPageIndex(value);
     switch (value) {
       case 0:
+        GoRouter.of(context).go('/');
         break;
       case 1:
+        GoRouter.of(context).go('/setting');
         break;
       default:
         throw Exception('No item found');
