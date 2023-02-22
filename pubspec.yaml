@@ -26,6 +26,8 @@ dependencies:
   freezed_annotation: ^2.2.0
   # https://pub.dev/packages/json_annotation/install
   json_annotation: ^4.8.0
+  # https://pub.dev/packages/equatable/install
+  equatable: ^2.0.5
 
 
 dev_dependencies:
