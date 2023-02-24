@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:todo_app/core/route/route_name.dart';
 import 'package:todo_app/features/dashboard/presentation/ui/dashboard_screen.dart';
 import 'package:todo_app/features/setting/presentation/ui/setting_screen.dart';
+import 'package:todo_app/features/todo/presentation/ui/todo_add_screen.dart';
 import 'package:todo_app/features/todo/presentation/ui/todo_screen.dart';
 
 final GlobalKey<NavigatorState> _rootNavigatorKey = GlobalKey(debugLabel: 'root');
@@ -32,6 +33,17 @@ class GoRouterProvider {
                   ),
                 );
               },
+              routes: [
+                GoRoute(
+                  path: 'addToDo',
+                  name: addToDoRoute,
+                  builder: (context, state) {
+                    return ToDoAddScreen(
+                      key: state.pageKey,
+                    );
+                  },
+                ),
+              ]
             ),
 
             GoRoute(
