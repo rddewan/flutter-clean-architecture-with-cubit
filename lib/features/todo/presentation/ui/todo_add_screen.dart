@@ -1,8 +1,10 @@
 
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:todo_app/common/style/dimens.dart';
 import 'package:todo_app/common/widget/form/custom_text_form_field.dart';
+import 'package:todo_app/features/todo/presentation/controller/todo_add_controller.dart';
 
 class ToDoAddScreen extends StatefulWidget {
   const ToDoAddScreen({Key? key}) : super(key: key);
@@ -53,6 +55,9 @@ class _ToDoAddScreenState extends State<ToDoAddScreen> {
                     return null;
                   },
                   onChanged: (value) {
+                    context.read<ToDoAddController>().setFormData(
+                      key: 'title', value: value,
+                    );
                     return null;
                   },
                 ),
@@ -60,7 +65,7 @@ class _ToDoAddScreenState extends State<ToDoAddScreen> {
                 const SizedBox(height: kMedium,),
 
                 CustomTextFormField(
-                  controller: _titleController,
+                  controller: _bodyController,
                   labelText: 'Body', 
                   hintText: 'ToDo Body',
                   keyboardType: TextInputType.text, 
@@ -74,6 +79,9 @@ class _ToDoAddScreenState extends State<ToDoAddScreen> {
                     return null;
                   },
                   onChanged: (value) {
+                    context.read<ToDoAddController>().setFormData(
+                      key: 'body', value: value,
+                    );
                     return null;
                   },
                 ),
@@ -81,7 +89,7 @@ class _ToDoAddScreenState extends State<ToDoAddScreen> {
                 const SizedBox(height: kMedium,),
 
                 CustomTextFormField(
-                  controller: _titleController,
+                  controller: _noteController,
                   labelText: 'Note', 
                   hintText: 'ToDo Note',
                   keyboardType: TextInputType.text, 
@@ -95,6 +103,9 @@ class _ToDoAddScreenState extends State<ToDoAddScreen> {
                     return null;
                   },
                   onChanged: (value) {
+                    context.read<ToDoAddController>().setFormData(
+                      key: 'note', value: value,
+                    );
                     return null;
                   },
                 ),
@@ -103,9 +114,9 @@ class _ToDoAddScreenState extends State<ToDoAddScreen> {
 
                 SwitchListTile.adaptive(
                   title: const Text('Status'),
-                  value: false, 
+                  value: context.watch<ToDoAddController>().state.todoStatus, 
                   onChanged: (value) {
-
+                    context.read<ToDoAddController>().setToDoStatus(value);
                   },
                 )
               ],
@@ -116,7 +127,10 @@ class _ToDoAddScreenState extends State<ToDoAddScreen> {
       floatingActionButton: FloatingActionButton.small(
         heroTag: 'saveToDo',
         onPressed: () {
-          
+          final isValid = _formKey.currentState?.validate();
+          if(isValid != null && isValid) {
+            context.read<ToDoAddController>().addToDo();
+          }
         },
         child: const Icon(Icons.save),
       ),
