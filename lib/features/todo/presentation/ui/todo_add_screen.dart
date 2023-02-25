@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:todo_app/common/mixin/dialog_mixin.dart';
+import 'package:todo_app/common/mixin/loading_overlay_mixin.dart';
 import 'package:todo_app/common/style/dimens.dart';
 import 'package:todo_app/common/widget/form/custom_text_form_field.dart';
 import 'package:todo_app/features/todo/presentation/controller/todo_add_controller.dart';
@@ -14,11 +15,14 @@ class ToDoAddScreen extends StatefulWidget {
   State<ToDoAddScreen> createState() => _ToDoAddScreenState();
 }
 
-class _ToDoAddScreenState extends State<ToDoAddScreen> with DialogMixin {
+class _ToDoAddScreenState extends State<ToDoAddScreen> 
+  with DialogMixin, LoadingOverlayMixin {
+
   final GlobalKey<FormState> _formKey = GlobalKey();
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _bodyController = TextEditingController();
   final TextEditingController _noteController = TextEditingController();
+  OverlayEntry? _overlayEntry;
 
   @override
   void dispose() {
@@ -38,9 +42,15 @@ class _ToDoAddScreenState extends State<ToDoAddScreen> with DialogMixin {
       body: SingleChildScrollView(
         child: BlocListener<ToDoAddController, ToDoAddState>(
           listener: (context, state) {
+            _overlayEntry?.remove();
+            _overlayEntry = null;
 
             if(state.isAdded) {
               _showSuccessDialog();
+            }
+
+            if (state.isLoading) {
+              _overlayEntry = showLoadingOverlay(context, _overlayEntry);
             }
           },
           child: Form(
