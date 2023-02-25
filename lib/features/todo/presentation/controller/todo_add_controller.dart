@@ -13,8 +13,13 @@ class ToDoAddController extends Cubit<ToDoAddState> {
 
     try {
 
-      emit(state.copyWith(isLoading: true));
+      emit(state.copyWith(isLoading: true, errorMsg: null));
       setFormData(key: 'user_id', value: '1');
+
+      if(!state.formData.containsKey('status')) {
+        setFormData(key: 'status', value: '0');
+      }
+
       final result = await _toDoService.addToDo(state.formData);
       _setIsAdded(result.id >= 1);
       

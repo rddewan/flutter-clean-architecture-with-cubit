@@ -43,7 +43,8 @@ class _ToDoAddScreenState extends State<ToDoAddScreen>
         child: BlocListener<ToDoAddController, ToDoAddState>(
           listenWhen: (previous, current) {
             return current.isAdded != previous.isAdded 
-              || current.isLoading != previous.isLoading;
+              || current.isLoading != previous.isLoading
+              || current.errorMsg != null;
           },
           listener: (context, state) {
             _overlayEntry?.remove();
@@ -55,6 +56,10 @@ class _ToDoAddScreenState extends State<ToDoAddScreen>
 
             if (state.isLoading) {
               _overlayEntry = showLoadingOverlay(context, _overlayEntry);
+            }
+
+            if (state.errorMsg != null) {
+              _showErrorSnackbar(state.errorMsg ?? '');
             }
           },
           child: Form(
@@ -162,6 +167,12 @@ class _ToDoAddScreenState extends State<ToDoAddScreen>
         },
         child: const Icon(Icons.save),
       ),
+    );
+  }
+
+  void _showErrorSnackbar(String data) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text(data))
     );
   }
 
