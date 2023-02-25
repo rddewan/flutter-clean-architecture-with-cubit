@@ -41,6 +41,10 @@ class _ToDoAddScreenState extends State<ToDoAddScreen>
       ),
       body: SingleChildScrollView(
         child: BlocListener<ToDoAddController, ToDoAddState>(
+          listenWhen: (previous, current) {
+            return current.isAdded != previous.isAdded 
+              || current.isLoading != previous.isLoading;
+          },
           listener: (context, state) {
             _overlayEntry?.remove();
             _overlayEntry = null;
