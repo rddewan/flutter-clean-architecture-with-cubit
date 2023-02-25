@@ -15,9 +15,8 @@ class ToDoAddScreen extends StatefulWidget {
   State<ToDoAddScreen> createState() => _ToDoAddScreenState();
 }
 
-class _ToDoAddScreenState extends State<ToDoAddScreen> 
-  with DialogMixin, LoadingOverlayMixin {
-
+class _ToDoAddScreenState extends State<ToDoAddScreen>
+    with DialogMixin, LoadingOverlayMixin {
   final GlobalKey<FormState> _formKey = GlobalKey();
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _bodyController = TextEditingController();
@@ -42,15 +41,15 @@ class _ToDoAddScreenState extends State<ToDoAddScreen>
       body: SingleChildScrollView(
         child: BlocListener<ToDoAddController, ToDoAddState>(
           listenWhen: (previous, current) {
-            return current.isAdded != previous.isAdded 
-              || current.isLoading != previous.isLoading
-              || current.errorMsg != null;
+            return current.isAdded != previous.isAdded ||
+                current.isLoading != previous.isLoading ||
+                current.errorMsg != null;
           },
           listener: (context, state) {
             _overlayEntry?.remove();
             _overlayEntry = null;
 
-            if(state.isAdded) {
+            if (state.isAdded) {
               _showSuccessDialog();
             }
 
@@ -144,11 +143,20 @@ class _ToDoAddScreenState extends State<ToDoAddScreen>
                   const SizedBox(
                     height: kMedium,
                   ),
-                  SwitchListTile.adaptive(
-                    title: const Text('Status'),
-                    value: context.watch<ToDoAddController>().state.todoStatus,
-                    onChanged: (value) {
-                      context.read<ToDoAddController>().setToDoStatus(value);
+                  BlocBuilder<ToDoAddController, ToDoAddState>(
+                    buildWhen: (previous, current) {
+                      return current.todoStatus != previous.todoStatus;
+                    },
+                    builder: (context, state) {                     
+                      return SwitchListTile.adaptive(
+                        title: const Text('Status'),
+                        value: state.todoStatus,
+                        onChanged: (value) {
+                          context
+                              .read<ToDoAddController>()
+                              .setToDoStatus(value);
+                        },
+                      );
                     },
                   )
                 ],
@@ -171,20 +179,18 @@ class _ToDoAddScreenState extends State<ToDoAddScreen>
   }
 
   void _showErrorSnackbar(String data) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text(data))
-    );
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(data)));
   }
 
   void _showSuccessDialog() {
     showSuccessDialog(
-      context: context, 
-      title: 'Success', 
-      msg: 'ToDo Added Successfully', 
-      btnOkText: 'OK', 
+      context: context,
+      title: 'Success',
+      msg: 'ToDo Added Successfully',
+      btnOkText: 'OK',
       onOkTap: () {
         final navigator = Navigator.of(context, rootNavigator: true);
-        if(navigator.canPop()) {
+        if (navigator.canPop()) {
           // pop the dialog
           navigator.pop();
           // pop the route
