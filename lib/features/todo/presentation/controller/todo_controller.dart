@@ -158,7 +158,7 @@ class ToDoController extends Cubit<ToDoState> {
         isFetching: false,
         isScrolling: false,
         formData: {},
-        todos: []
+        //todos: []
       )
     );
   }
