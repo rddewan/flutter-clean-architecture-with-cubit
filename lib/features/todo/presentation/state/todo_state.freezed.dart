@@ -266,7 +266,7 @@ class _$_ToDoState implements _ToDoState {
       this.isUpdated = false,
       this.isDeleted = false,
       this.todoStatus = false,
-      this.isReadonly = false,
+      this.isReadonly = true,
       this.isFetching = false,
       this.isScrolling = false,
       final Map<String, dynamic> formData = const {},

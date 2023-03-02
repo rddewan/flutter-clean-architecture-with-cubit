@@ -12,7 +12,7 @@ class ToDoState with _$ToDoState {
     @Default(false) final bool isUpdated,
     @Default(false) final bool isDeleted,
     @Default(false) final bool todoStatus,
-    @Default(false) final bool isReadonly,
+    @Default(true) final bool isReadonly,
     @Default(false) final bool isFetching,
     @Default(false) final bool isScrolling,
     @Default({}) final Map<String,dynamic> formData,

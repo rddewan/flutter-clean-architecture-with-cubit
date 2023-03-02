@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -23,9 +22,9 @@ class _ToDoDetailScreenState extends State<ToDoDetailScreen> with DialogMixin {
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _bodyController = TextEditingController();
   final TextEditingController _noteController = TextEditingController();
-  
+
   @override
-  void initState() {    
+  void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       context.read<ToDoController>().getToDo(widget.id);
@@ -44,8 +43,22 @@ class _ToDoDetailScreenState extends State<ToDoDetailScreen> with DialogMixin {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Add ToDo'),
+        title: const Text('ToDo Detail'),
         centerTitle: true,
+        actions: [
+          BlocBuilder<ToDoController, ToDoState>(
+            builder: (context, state) {
+              return IconButton(
+                onPressed: () {
+                  context.read<ToDoController>().setIsEnabled();
+                },
+                icon: state.isReadonly
+                  ? const Icon(Icons.edit_note)
+                  : const Icon(Icons.edit_outlined),
+              );
+            },
+          ),
+        ],
       ),
       body: SingleChildScrollView(
         child: BlocConsumer<ToDoController, ToDoState>(
@@ -53,19 +66,19 @@ class _ToDoDetailScreenState extends State<ToDoDetailScreen> with DialogMixin {
             return current.isUpdated != previous.isUpdated;
           },
           listener: (context, state) {
-            if(state.isUpdated) {
+            if (state.isUpdated) {
               _showSuccessDialog();
             }
           },
           buildWhen: (previous, current) {
-            return current.todo.hashCode != previous.todo.hashCode 
-              || current.isReadonly != previous.isReadonly;
+            return current.todo.hashCode != previous.todo.hashCode ||
+                current.isReadonly != previous.isReadonly;
           },
           builder: (context, state) {
             _titleController.text = state.formData['title'] ?? '';
             _bodyController.text = state.formData['body'] ?? '';
             _noteController.text = state.formData['note'] ?? '';
-            
+
             return Form(
               key: _formKey,
               child: Padding(
@@ -155,16 +168,17 @@ class _ToDoDetailScreenState extends State<ToDoDetailScreen> with DialogMixin {
                       buildWhen: (previous, current) {
                         return current.todoStatus != previous.todoStatus;
                       },
-                      builder: (context, state) {                     
+                      builder: (context, state) {
                         return SwitchListTile.adaptive(
-                          title: const Text('Status'),
-                          value: state.todoStatus,
-                          onChanged: state.isReadonly
-                            ? null
-                            : (value) {
-                              context.read<ToDoController>().setToDoStatus(value);
-                            }
-                        );
+                            title: const Text('Status'),
+                            value: state.todoStatus,
+                            onChanged: state.isReadonly
+                                ? null
+                                : (value) {
+                                    context
+                                        .read<ToDoController>()
+                                        .setToDoStatus(value);
+                                  });
                       },
                     )
                   ],
@@ -205,5 +219,4 @@ class _ToDoDetailScreenState extends State<ToDoDetailScreen> with DialogMixin {
       },
     );
   }
-  
 }
