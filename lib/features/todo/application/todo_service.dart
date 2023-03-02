@@ -91,6 +91,7 @@ class ToDoService implements IToDoService {
   ToDoItem _mapToDoItem(ToDoResponse response) {
     return ToDoItem(
       id: int.parse(response.id),
+      userId: int.parse(response.userId),
       title: response.title,
       body: response.body,
       note: response.note,
@@ -108,6 +109,7 @@ class ToDoService implements IToDoService {
       todos: data.map((todo) => 
         ToDoItem(
           id: int.parse(todo.id),
+          userId: int.parse(todo.userId),
           title: todo.title,
           body: todo.body,
           note: todo.note,
