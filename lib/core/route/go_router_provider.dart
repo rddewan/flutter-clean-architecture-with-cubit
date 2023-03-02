@@ -10,12 +10,15 @@ import 'package:todo_app/features/todo/presentation/ui/todo_add_screen.dart';
 import 'package:todo_app/features/todo/presentation/ui/todo_deatil_screen.dart';
 import 'package:todo_app/features/todo/presentation/ui/todo_screen.dart';
 
-final GlobalKey<NavigatorState> _rootNavigatorKey =
-    GlobalKey(debugLabel: 'root');
-final GlobalKey<NavigatorState> _shellNavigatorKey =
-    GlobalKey(debugLabel: 'shell');
+
 
 class GoRouterProvider {
+
+  final GlobalKey<NavigatorState> _rootNavigatorKey =
+    GlobalKey(debugLabel: 'root');
+  final GlobalKey<NavigatorState> _shellNavigatorKey =
+      GlobalKey(debugLabel: 'shell');
+
   GoRouter goRouter() {
     return GoRouter(
         navigatorKey: _rootNavigatorKey,
