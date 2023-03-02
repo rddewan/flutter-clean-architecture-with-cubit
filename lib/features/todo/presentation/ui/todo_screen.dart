@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:todo_app/common/mixin/loading_overlay_mixin.dart';
 import 'package:todo_app/common/style/dimens.dart';
+import 'package:todo_app/core/service_locator.dart';
 import 'package:todo_app/features/todo/domain/model/todo_item.dart';
 import 'package:todo_app/features/todo/presentation/controller/todo_controller.dart';
 import 'package:todo_app/features/todo/presentation/state/todo_state.dart';
@@ -14,7 +15,7 @@ class ToDoScreen extends StatefulWidget {
   State<ToDoScreen> createState() => _ToDoScreenState();
 }
 
-class _ToDoScreenState extends State<ToDoScreen> with LoadingOverlayMixin{
+class _ToDoScreenState extends State<ToDoScreen> with LoadingOverlayMixin,RouteAware{
   OverlayEntry? _overlayEntry;
 
   @override
@@ -22,7 +23,14 @@ class _ToDoScreenState extends State<ToDoScreen> with LoadingOverlayMixin{
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       context.read<ToDoController>().getToDos();
+      getIt.get<RouteObserver>().subscribe(this, ModalRoute.of(context)!);
     });
+  }
+
+  @override
+  void dispose() {
+    getIt.get<RouteObserver>().unsubscribe(this);
+    super.dispose();
   }
 
   @override
@@ -107,5 +115,11 @@ class _ToDoScreenState extends State<ToDoScreen> with LoadingOverlayMixin{
         child: const Icon(Icons.add),
       ),
     );
+  }
+
+  @override
+  void didPopNext() {
+    context.read<ToDoController>().refetchToDos();    
+    super.didPopNext();
   }
 }

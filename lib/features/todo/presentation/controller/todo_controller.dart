@@ -28,7 +28,7 @@ class ToDoController extends Cubit<ToDoState> {
   }
 
   void refetchToDos() {
-    emit(state.copyWith(todos: []));
+    emit(state.copyWith(todos: [], isLoading: false));
     getToDos();
   }
 

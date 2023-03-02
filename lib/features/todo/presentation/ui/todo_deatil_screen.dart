@@ -4,9 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:todo_app/common/mixin/dialog_mixin.dart';
 import 'package:todo_app/common/style/dimens.dart';
 import 'package:todo_app/common/widget/form/custom_text_form_field.dart';
-import 'package:todo_app/features/todo/presentation/controller/todo_add_controller.dart';
 import 'package:todo_app/features/todo/presentation/controller/todo_controller.dart';
-import 'package:todo_app/features/todo/presentation/state/todo_add_state.dart';
 import 'package:todo_app/features/todo/presentation/state/todo_state.dart';
 
 class ToDoDetailScreen extends StatefulWidget {
@@ -49,15 +47,15 @@ class _ToDoDetailScreenState extends State<ToDoDetailScreen> with DialogMixin {
           BlocBuilder<ToDoController, ToDoState>(
             builder: (context, state) {
               return IconButton(
-                onPressed: () {
-                  context.read<ToDoController>().setIsEnabled();
-                },
-                icon: state.isReadonly
-                  ? const Icon(Icons.edit_note)
-                  : const Icon(Icons.edit_outlined),
-              );
+                  onPressed: () {
+                    context.read<ToDoController>().setIsEnabled();
+                  },
+                  icon: state.isReadonly 
+                    ? const Icon(Icons.edit_note)
+                    : const Icon(Icons.edit_outlined),
+                  );
             },
-          ),
+          )
         ],
       ),
       body: SingleChildScrollView(
@@ -166,7 +164,8 @@ class _ToDoDetailScreenState extends State<ToDoDetailScreen> with DialogMixin {
                     ),
                     BlocBuilder<ToDoController, ToDoState>(
                       buildWhen: (previous, current) {
-                        return current.todoStatus != previous.todoStatus;
+                        return current.todoStatus != previous.todoStatus 
+                          || current.isReadonly != previous.isReadonly;
                       },
                       builder: (context, state) {
                         return SwitchListTile.adaptive(

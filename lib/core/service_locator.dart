@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:http/http.dart';
 import 'package:todo_app/core/route/go_router_provider.dart';
@@ -13,7 +14,8 @@ import 'package:todo_app/features/todo/presentation/controller/todo_controller.d
 final getIt = GetIt.instance;
 
 void serviceLocatorInit() {
-  getIt.registerFactory(() => GoRouterProvider());
+  getIt.registerSingleton<RouteObserver>(RouteObserver<ModalRoute>());
+  getIt.registerFactory(() => GoRouterProvider(getIt.get<RouteObserver>()));
   getIt.registerSingleton<Client>(Client());
 
   //Feature ToDo

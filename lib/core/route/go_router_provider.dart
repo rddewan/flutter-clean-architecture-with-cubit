@@ -13,11 +13,14 @@ import 'package:todo_app/features/todo/presentation/ui/todo_screen.dart';
 
 
 class GoRouterProvider {
+  final RouteObserver _shellRouteObserver;
 
   final GlobalKey<NavigatorState> _rootNavigatorKey =
     GlobalKey(debugLabel: 'root');
   final GlobalKey<NavigatorState> _shellNavigatorKey =
       GlobalKey(debugLabel: 'shell');
+
+  GoRouterProvider(this._shellRouteObserver);
 
   GoRouter goRouter() {
     return GoRouter(
@@ -26,6 +29,7 @@ class GoRouterProvider {
         routes: [
           ShellRoute(
               navigatorKey: _shellNavigatorKey,
+              observers: [_shellRouteObserver],
               builder: (context, state, child) {
                 return DashboardScreen(
                   key: state.pageKey,
