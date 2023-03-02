@@ -42,7 +42,8 @@ class _ToDoScreenState extends State<ToDoScreen> with LoadingOverlayMixin,RouteA
       ),
       body: BlocListener<ToDoController, ToDoState>(
         listenWhen: (previous, current) {
-          return current.isLoading != previous.isLoading;
+          return current.isLoading != previous.isLoading 
+          || current.isDeleted != previous.isDeleted;
         },
         listener: (context, state) {
           _overlayEntry?.remove();
@@ -50,6 +51,9 @@ class _ToDoScreenState extends State<ToDoScreen> with LoadingOverlayMixin,RouteA
           
           if (state.isLoading) {
             _overlayEntry = showLoadingOverlay(context, _overlayEntry);
+          }
+          if (state.isDeleted) {
+            _showSnackBar();
           }
         },
         child: BlocSelector<ToDoController, ToDoState, List<ToDoItem>>(
@@ -158,6 +162,14 @@ class _ToDoScreenState extends State<ToDoScreen> with LoadingOverlayMixin,RouteA
       },
     );
 
+  }
+
+  void _showSnackBar() {
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text('ToDo deleted successfully',)
+      ),
+    );
   }
 
   @override
