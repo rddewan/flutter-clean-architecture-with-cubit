@@ -62,42 +62,55 @@ class _ToDoScreenState extends State<ToDoScreen> with LoadingOverlayMixin,RouteA
               itemBuilder: (context, index) {
                 final todo = state[index];
 
-                return GestureDetector(
-                  onTap: () {
-                    context.push('/detail/${todo.id}');
-                  },
-                  child: Card(
-                    child: Padding(
-                      padding: const EdgeInsets.all(kSmall),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                            children: [
-                              Text(todo.id.toString()),
-                              const Spacer(),
-                              Text(todo.createdAt),
-                            ],
-                          ),
-                          const SizedBox(
-                            height: kSmall,
-                          ),
-                          Text(todo.title),
-                          const SizedBox(
-                            height: kSmall,
-                          ),
-                          Text(todo.body),
-                          Align(
-                            alignment: Alignment.centerRight,
-                            child: todo.status
-                                ? const Icon(
-                                    Icons.check_circle,
-                                    color: Colors.green,
-                                  )
-                                : const SizedBox.shrink(),
-                          )
-                        ],
+                return Dismissible(
+                  key: UniqueKey(),
+                  direction: DismissDirection.endToStart,
+                  dismissThresholds: const {DismissDirection.endToStart:0.6},
+                  background: const ColoredBox(
+                    color: Colors.redAccent,
+                    child: Align(
+                      alignment: Alignment.centerRight,
+                      child: Icon(Icons.delete, color: Colors.white,),
+                    ),
+                  ),
+                  confirmDismiss: (direction) => _confirmDismiss(direction, todo.id,todo.userId),
+                  child: GestureDetector(
+                    onTap: () {
+                      context.push('/detail/${todo.id}');
+                    },
+                    child: Card(
+                      child: Padding(
+                        padding: const EdgeInsets.all(kSmall),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              children: [
+                                Text(todo.id.toString()),
+                                const Spacer(),
+                                Text(todo.createdAt),
+                              ],
+                            ),
+                            const SizedBox(
+                              height: kSmall,
+                            ),
+                            Text(todo.title),
+                            const SizedBox(
+                              height: kSmall,
+                            ),
+                            Text(todo.body),
+                            Align(
+                              alignment: Alignment.centerRight,
+                              child: todo.status
+                                  ? const Icon(
+                                      Icons.check_circle,
+                                      color: Colors.green,
+                                    )
+                                  : const SizedBox.shrink(),
+                            )
+                          ],
+                        ),
                       ),
                     ),
                   ),
@@ -115,6 +128,36 @@ class _ToDoScreenState extends State<ToDoScreen> with LoadingOverlayMixin,RouteA
         child: const Icon(Icons.add),
       ),
     );
+  }
+
+  Future<bool?> _confirmDismiss(DismissDirection direction, int id, int userId) async {
+    return await showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text("Delete Confirmation"),
+          content: const Text(
+            "Are you sure you want to delete this item?",
+          ),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                context.read<ToDoController>().deleteToDo(id, userId);
+                Navigator.of(context).pop(true);
+              },
+              child: const Text("Delete"),
+            ),
+            TextButton(
+              onPressed: () {                
+                Navigator.of(context).pop();
+              },
+              child: const Text("Cancel"),
+            ),
+          ],
+        );
+      },
+    );
+
   }
 
   @override
