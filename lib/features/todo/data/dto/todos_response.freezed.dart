@@ -20,9 +20,12 @@ ToDosResponse _$ToDosResponseFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$ToDosResponse {
+  @JsonKey(name: 'current_page')
   int get currentPage => throw _privateConstructorUsedError;
   List<ToDosResponseItem> get data => throw _privateConstructorUsedError;
+  @JsonKey(name: 'last_page')
   int get lastPage => throw _privateConstructorUsedError;
+  @JsonKey(name: 'per_page')
   int get perPage => throw _privateConstructorUsedError;
   int get total => throw _privateConstructorUsedError;
 
@@ -39,10 +42,10 @@ abstract class $ToDosResponseCopyWith<$Res> {
       _$ToDosResponseCopyWithImpl<$Res, ToDosResponse>;
   @useResult
   $Res call(
-      {int currentPage,
+      {@JsonKey(name: 'current_page') int currentPage,
       List<ToDosResponseItem> data,
-      int lastPage,
-      int perPage,
+      @JsonKey(name: 'last_page') int lastPage,
+      @JsonKey(name: 'per_page') int perPage,
       int total});
 }
 
@@ -99,10 +102,10 @@ abstract class _$$_ToDosResponseCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {int currentPage,
+      {@JsonKey(name: 'current_page') int currentPage,
       List<ToDosResponseItem> data,
-      int lastPage,
-      int perPage,
+      @JsonKey(name: 'last_page') int lastPage,
+      @JsonKey(name: 'per_page') int perPage,
       int total});
 }
 
@@ -152,10 +155,10 @@ class __$$_ToDosResponseCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_ToDosResponse implements _ToDosResponse {
   const _$_ToDosResponse(
-      {this.currentPage = 0,
+      {@JsonKey(name: 'current_page') this.currentPage = 0,
       final List<ToDosResponseItem> data = const [],
-      this.lastPage = 0,
-      this.perPage = 0,
+      @JsonKey(name: 'last_page') this.lastPage = 0,
+      @JsonKey(name: 'per_page') this.perPage = 0,
       this.total = 0})
       : _data = data;
 
@@ -163,7 +166,7 @@ class _$_ToDosResponse implements _ToDosResponse {
       _$$_ToDosResponseFromJson(json);
 
   @override
-  @JsonKey()
+  @JsonKey(name: 'current_page')
   final int currentPage;
   final List<ToDosResponseItem> _data;
   @override
@@ -175,10 +178,10 @@ class _$_ToDosResponse implements _ToDosResponse {
   }
 
   @override
-  @JsonKey()
+  @JsonKey(name: 'last_page')
   final int lastPage;
   @override
-  @JsonKey()
+  @JsonKey(name: 'per_page')
   final int perPage;
   @override
   @JsonKey()
@@ -224,22 +227,25 @@ class _$_ToDosResponse implements _ToDosResponse {
 
 abstract class _ToDosResponse implements ToDosResponse {
   const factory _ToDosResponse(
-      {final int currentPage,
+      {@JsonKey(name: 'current_page') final int currentPage,
       final List<ToDosResponseItem> data,
-      final int lastPage,
-      final int perPage,
+      @JsonKey(name: 'last_page') final int lastPage,
+      @JsonKey(name: 'per_page') final int perPage,
       final int total}) = _$_ToDosResponse;
 
   factory _ToDosResponse.fromJson(Map<String, dynamic> json) =
       _$_ToDosResponse.fromJson;
 
   @override
+  @JsonKey(name: 'current_page')
   int get currentPage;
   @override
   List<ToDosResponseItem> get data;
   @override
+  @JsonKey(name: 'last_page')
   int get lastPage;
   @override
+  @JsonKey(name: 'per_page')
   int get perPage;
   @override
   int get total;

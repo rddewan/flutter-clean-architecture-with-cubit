@@ -8,23 +8,23 @@ part of 'todos_response.dart';
 
 _$_ToDosResponse _$$_ToDosResponseFromJson(Map<String, dynamic> json) =>
     _$_ToDosResponse(
-      currentPage: json['currentPage'] as int? ?? 0,
+      currentPage: json['current_page'] as int? ?? 0,
       data: (json['data'] as List<dynamic>?)
               ?.map(
                   (e) => ToDosResponseItem.fromJson(e as Map<String, dynamic>))
               .toList() ??
           const [],
-      lastPage: json['lastPage'] as int? ?? 0,
-      perPage: json['perPage'] as int? ?? 0,
+      lastPage: json['last_page'] as int? ?? 0,
+      perPage: json['per_page'] as int? ?? 0,
       total: json['total'] as int? ?? 0,
     );
 
 Map<String, dynamic> _$$_ToDosResponseToJson(_$_ToDosResponse instance) =>
     <String, dynamic>{
-      'currentPage': instance.currentPage,
+      'current_page': instance.currentPage,
       'data': instance.data,
-      'lastPage': instance.lastPage,
-      'perPage': instance.perPage,
+      'last_page': instance.lastPage,
+      'per_page': instance.perPage,
       'total': instance.total,
     };
 

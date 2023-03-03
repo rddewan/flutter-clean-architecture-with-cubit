@@ -64,8 +64,17 @@ class ToDoController extends Cubit<ToDoState> {
   }
 
   void refetchToDos() {
-    emit(state.copyWith(todos: [], isLoading: false));
-    getToDos();
+    emit(
+      state.copyWith(
+        todos: [], 
+        currentPage: 0,
+        lastPage: 0,
+        isLoading: false,
+        isFetching: false
+      ),
+    );
+
+    getToDoList();
   }
 
   void getToDo(int id) async {
