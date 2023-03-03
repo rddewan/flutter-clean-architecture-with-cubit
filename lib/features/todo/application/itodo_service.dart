@@ -8,6 +8,8 @@ abstract class IToDoService  {
 
   Future<ToDoModel> getToDos(int userId);
 
+  Future<ToDoModel> getToDoList(Map<String,dynamic> queries);
+
   Future<ToDoItem> addToDo(Map<String,dynamic> body);
 
   Future<ToDoItem> updateToDo(Map<String,dynamic> queries);

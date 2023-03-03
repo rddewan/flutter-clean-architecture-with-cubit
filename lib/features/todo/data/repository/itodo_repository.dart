@@ -10,6 +10,8 @@ abstract class IToDoRepository {
 
   Future<ToDosResponse> getToDos(int userId);
 
+  Future<ToDosResponse> getToDoList(Map<String,dynamic> queries);
+
   Future<ToDoResponse> addToDo(Map<String,dynamic> body);
 
   Future<ToDoResponse> updateToDo(Map<String,dynamic> queries);

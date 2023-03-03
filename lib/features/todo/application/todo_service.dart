@@ -74,6 +74,20 @@ class ToDoService implements IToDoService {
   }
 
   @override
+  Future<ToDoModel> getToDoList(Map<String, dynamic> queries) async {
+    try {
+
+      final response = await _toDoRepository.getToDoList(queries);
+      final result = _mapToDoModel(response);
+
+      return result;
+      
+    } on Failure catch (_) {
+      rethrow;      
+    }
+  }
+
+  @override
   Future<ToDoItem> updateToDo(Map<String, dynamic> queries) async {
 
     try {
@@ -126,5 +140,7 @@ class ToDoService implements IToDoService {
       ),
     );
   }
+  
+  
   
 }

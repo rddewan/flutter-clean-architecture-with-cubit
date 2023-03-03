@@ -27,6 +27,42 @@ class ToDoController extends Cubit<ToDoState> {
     }
   }
 
+  void getToDoList() async {
+
+    try {
+
+      final oldItems = state.todos;
+
+      if (oldItems.isNotEmpty && !state.isScrolling) return;
+
+      if(state.isFetching) return;      
+
+      emit(state.copyWith(isLoading: true, isFetching: true));
+
+      final pageNumber = state.currentPage == 0 ? 1 : state.currentPage + 1;
+      final query = {'user_id':'1','perPage':'10','pageNumber':pageNumber.toString()};
+
+      final result = await _toDoService.getToDoList(query);
+
+      emit(
+        state.copyWith(
+          todos: [...oldItems,...result.todos], 
+          currentPage: result.page.currentPage,
+          lastPage: result.page.lastPage,
+          isLoading: false,
+          isFetching: false,
+        ),
+      );
+      
+    } on Failure catch (e) {
+      emit(state.copyWith(
+        isLoading: false,
+        isFetching: false,
+        errorMsg: e.message,
+      ));
+    }
+  }
+
   void refetchToDos() {
     emit(state.copyWith(todos: [], isLoading: false));
     getToDos();

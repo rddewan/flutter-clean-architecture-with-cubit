@@ -101,5 +101,23 @@ class ToDoRepository implements IToDoRepository {
       throw Failure(message: e.toString());
     }
   }
+  
+  @override
+  Future<ToDosResponse> getToDoList(Map<String, dynamic> queries) async {
+    
+    try {
+
+      final response = await _toDoApiService.getToDoList(queries);
+
+      if(response.statusCode != HttpStatus.ok) {
+        throw Failure(message: response.httpResponseError());
+      } 
+
+      return toDosResponseFromJson(response.body);
+      
+    } catch (e) {
+      throw Failure(message: e.toString());
+    }
+  }
 
 }

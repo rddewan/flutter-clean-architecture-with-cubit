@@ -93,4 +93,21 @@ class ToDoApiService with UriMixin implements IToDoApiService {
     }
   }
   
+  @override
+  Future<Response> getToDoList(Map<String, dynamic> queries) async {
+
+    try {
+      final url = getUri(
+        '/api/v1/todo/getToDoList',
+        null,
+        queries
+      );
+
+      return await http.get(url);
+
+    } catch (e) {
+      rethrow;
+    }
+  }
+  
 }

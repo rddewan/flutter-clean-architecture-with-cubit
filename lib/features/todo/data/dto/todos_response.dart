@@ -12,12 +12,15 @@ String toDosResponseToJson(ToDosResponse data) => json.encode(data.toJson());
 class ToDosResponse with _$ToDosResponse {
   const factory ToDosResponse({
     @Default(0)
+    @JsonKey(name: 'current_page')
     int currentPage,
     @Default([])
     List<ToDosResponseItem> data,
-    @Default(0)    
+    @Default(0)  
+    @JsonKey(name: 'last_page')  
     int lastPage,   
     @Default(0) 
+    @JsonKey(name: 'per_page')
     int perPage, 
     @Default(0)
     int total,
