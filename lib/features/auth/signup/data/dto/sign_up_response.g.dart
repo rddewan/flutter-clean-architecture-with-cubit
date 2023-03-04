@@ -12,7 +12,7 @@ _$_SignUpResponse _$$_SignUpResponseFromJson(Map<String, dynamic> json) =>
       email: json['email'] as String,
       updatedAt: DateTime.parse(json['updated_at'] as String),
       createdAt: DateTime.parse(json['created_at'] as String),
-      id: json['id'] as int?,
+      id: json['id'] as int,
     );
 
 Map<String, dynamic> _$$_SignUpResponseToJson(_$_SignUpResponse instance) =>

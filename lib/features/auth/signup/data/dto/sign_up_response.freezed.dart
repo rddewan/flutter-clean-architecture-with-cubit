@@ -26,7 +26,7 @@ mixin _$SignUpResponse {
   DateTime get updatedAt => throw _privateConstructorUsedError;
   @JsonKey(name: 'created_at')
   DateTime get createdAt => throw _privateConstructorUsedError;
-  int? get id => throw _privateConstructorUsedError;
+  int get id => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -45,7 +45,7 @@ abstract class $SignUpResponseCopyWith<$Res> {
       String email,
       @JsonKey(name: 'updated_at') DateTime updatedAt,
       @JsonKey(name: 'created_at') DateTime createdAt,
-      int? id});
+      int id});
 }
 
 /// @nodoc
@@ -65,7 +65,7 @@ class _$SignUpResponseCopyWithImpl<$Res, $Val extends SignUpResponse>
     Object? email = null,
     Object? updatedAt = null,
     Object? createdAt = null,
-    Object? id = freezed,
+    Object? id = null,
   }) {
     return _then(_value.copyWith(
       name: null == name
@@ -84,10 +84,10 @@ class _$SignUpResponseCopyWithImpl<$Res, $Val extends SignUpResponse>
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
-      id: freezed == id
+      id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as int,
     ) as $Val);
   }
 }
@@ -105,7 +105,7 @@ abstract class _$$_SignUpResponseCopyWith<$Res>
       String email,
       @JsonKey(name: 'updated_at') DateTime updatedAt,
       @JsonKey(name: 'created_at') DateTime createdAt,
-      int? id});
+      int id});
 }
 
 /// @nodoc
@@ -123,7 +123,7 @@ class __$$_SignUpResponseCopyWithImpl<$Res>
     Object? email = null,
     Object? updatedAt = null,
     Object? createdAt = null,
-    Object? id = freezed,
+    Object? id = null,
   }) {
     return _then(_$_SignUpResponse(
       name: null == name
@@ -142,10 +142,10 @@ class __$$_SignUpResponseCopyWithImpl<$Res>
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
-      id: freezed == id
+      id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as int,
     ));
   }
 }
@@ -174,7 +174,7 @@ class _$_SignUpResponse implements _SignUpResponse {
   @JsonKey(name: 'created_at')
   final DateTime createdAt;
   @override
-  final int? id;
+  final int id;
 
   @override
   String toString() {
@@ -220,7 +220,7 @@ abstract class _SignUpResponse implements SignUpResponse {
       required final String email,
       @JsonKey(name: 'updated_at') required final DateTime updatedAt,
       @JsonKey(name: 'created_at') required final DateTime createdAt,
-      required final int? id}) = _$_SignUpResponse;
+      required final int id}) = _$_SignUpResponse;
 
   factory _SignUpResponse.fromJson(Map<String, dynamic> json) =
       _$_SignUpResponse.fromJson;
@@ -236,7 +236,7 @@ abstract class _SignUpResponse implements SignUpResponse {
   @JsonKey(name: 'created_at')
   DateTime get createdAt;
   @override
-  int? get id;
+  int get id;
   @override
   @JsonKey(ignore: true)
   _$$_SignUpResponseCopyWith<_$_SignUpResponse> get copyWith =>
