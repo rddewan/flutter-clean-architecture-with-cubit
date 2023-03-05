@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:todo_app/core/route/route_name.dart';
 import 'package:todo_app/core/service_locator.dart';
+import 'package:todo_app/features/auth/signup/presentation/controller/sing_up_controller.dart';
+import 'package:todo_app/features/auth/signup/presentation/ui/sign_up_screen.dart';
 import 'package:todo_app/features/dashboard/presentation/ui/dashboard_screen.dart';
 import 'package:todo_app/features/setting/presentation/ui/setting_screen.dart';
 import 'package:todo_app/features/todo/presentation/controller/todo_add_controller.dart';
@@ -27,6 +29,18 @@ class GoRouterProvider {
         navigatorKey: _rootNavigatorKey,
         initialLocation: '/',
         routes: [
+          GoRoute(
+            path: 'signUp',
+            name: signUpRoute,
+            builder: (context, state) {
+              return BlocProvider(
+                create: (context) => getIt.get<SignUpController>(),
+                child: SignUpScreen(
+                  key: state.pageKey,
+                ),
+              );
+            },
+          ),
           ShellRoute(
               navigatorKey: _shellNavigatorKey,
               observers: [_shellRouteObserver],
