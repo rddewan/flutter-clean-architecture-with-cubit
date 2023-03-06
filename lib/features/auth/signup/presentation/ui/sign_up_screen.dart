@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+import 'package:todo_app/common/mixin/dialog_mixin.dart';
 import 'package:todo_app/common/style/dimens.dart';
 import 'package:todo_app/common/widget/button/primary_button.dart';
 import 'package:todo_app/common/widget/check_box_widget.dart';
@@ -17,7 +19,7 @@ class SignUpScreen extends StatefulWidget {
   State<SignUpScreen> createState() => _SignUpScreenState();
 }
 
-class _SignUpScreenState extends State<SignUpScreen> {
+class _SignUpScreenState extends State<SignUpScreen> with DialogMixin {
   final GlobalKey<FormState> _formKey = GlobalKey();
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
@@ -49,7 +51,19 @@ class _SignUpScreenState extends State<SignUpScreen> {
           child: Form(
             key: _formKey,
             child: BlocConsumer<SignUpController, SignUpState>(
+              listenWhen: (previous, current) {
+                return current.isSignUp != previous.isSignUp 
+                  || current.errorMsg != previous.errorMsg;
+              },
               listener: (context, state) {
+                if (state.isSignUp) {
+                  _showConfirmDialog();
+                }
+
+                if (state.errorMsg != null) {
+                  _showSnackBar();
+
+                }
                 
               },
               buildWhen: (previous, current) => false,
@@ -175,6 +189,41 @@ class _SignUpScreenState extends State<SignUpScreen> {
     if (isValid  != null && isValid) {
       context.read<SignUpController>().signUp();
     }
+  }
+
+  void _showSnackBar() {
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text('ToDo deleted successfully',)
+      ),
+    );
+  }
+
+  void _showConfirmDialog() {
+    showConfirmDialog(
+      context: context, 
+      title: 'Do you want to login', 
+      msg: 'You will be redirected to login page.', 
+      btnYesText: 'YES', 
+      btnNoText: 'NO', 
+      onYesTap: () {
+        // dismiss the dialog
+        final navigator = Navigator.of(context,rootNavigator: true);
+        if (navigator.canPop()) {
+          navigator.pop();
+        }
+        // navigate to login screen
+        context.go('login');
+      }, 
+      onNoTap:() {
+        // dismiss the dialog
+        final navigator = Navigator.of(context,rootNavigator: true);
+        if (navigator.canPop()) {
+          navigator.pop();
+        }
+
+      },
+    );
   }
 }
 
