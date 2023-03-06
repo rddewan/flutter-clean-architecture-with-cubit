@@ -27,10 +27,10 @@ class GoRouterProvider {
   GoRouter goRouter() {
     return GoRouter(
         navigatorKey: _rootNavigatorKey,
-        initialLocation: '/',
+        initialLocation: '/signUp',
         routes: [
           GoRoute(
-            path: 'signUp',
+            path: '/signUp',
             name: signUpRoute,
             builder: (context, state) {
               return BlocProvider(

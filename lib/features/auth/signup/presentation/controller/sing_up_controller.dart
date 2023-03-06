@@ -39,8 +39,8 @@ class SignUpController extends Cubit<SignUpState> {
     emit(state.copyWith(isTermsAndConditions: value));
   }
 
-  void isObscure(bool value){
-    emit(state.copyWith(isObscure: value));
+  void isObscure(){
+    emit(state.copyWith(isObscure: !state.isObscure));
   }
 
   void setFormData({required String key, required dynamic value}) {
