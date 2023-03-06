@@ -17,7 +17,7 @@ class SignUpCheckBox extends StatelessWidget {
       subtitle: 'Please accept the terms and conditions',
       value: isTermsAndConditions,
       validator: (value) {
-        if (value != null && !value) {
+        if (!isTermsAndConditions) {
           return 'Please accept the terms and conditions';
         }
         return null;

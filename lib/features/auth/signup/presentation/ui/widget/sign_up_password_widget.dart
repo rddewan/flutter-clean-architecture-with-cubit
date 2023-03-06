@@ -7,12 +7,14 @@ class SignUpPasswordWidget extends StatelessWidget {
   final String labelText;
   final String hintText;
   final String validatorText;
+  final String formKey;
 
   const SignUpPasswordWidget({
     super.key,
     required this.labelText,
     required this.hintText,
     required this.validatorText,
+    required this.formKey,
     required TextEditingController passwordController,
   }) : _passwordController = passwordController;
 
@@ -46,7 +48,7 @@ class SignUpPasswordWidget extends StatelessWidget {
       },
       onChanged: (value) {
         context.read<SignUpController>().setFormData(
-          key: 'password', value: value,
+          key: formKey, value: value,
         );
         return null;
       },

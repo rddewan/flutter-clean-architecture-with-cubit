@@ -47,6 +47,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
         child: Padding(
           padding: const EdgeInsets.all(kMedium),
           child: Form(
+            key: _formKey,
             child: BlocConsumer<SignUpController, SignUpState>(
               listener: (context, state) {
                 
@@ -105,6 +106,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       height: kMedium,
                     ),
                     SignUpPasswordWidget(
+                      formKey: 'password',
                       labelText: 'Password',
                       hintText: 'Enter your password',
                       validatorText: 'password is empty',
@@ -114,6 +116,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       height: kMedium,
                     ),
                     SignUpPasswordWidget(
+                      formKey: 'password_confirmation',
                       labelText: 'Confirm Password',
                       hintText: 'Enter your confirm password',
                       validatorText: 'confirm password is empty',
@@ -166,6 +169,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
     );
   }
 
-  void _signUp() {}
+  void _signUp() {
+    final isValid = _formKey.currentState?.validate();
+
+    if (isValid  != null && isValid) {
+      context.read<SignUpController>().signUp();
+    }
+  }
 }
 
