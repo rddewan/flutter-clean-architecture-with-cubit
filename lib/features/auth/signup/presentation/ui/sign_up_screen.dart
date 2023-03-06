@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:todo_app/common/style/dimens.dart';
+import 'package:todo_app/common/widget/button/primary_button.dart';
 import 'package:todo_app/common/widget/check_box_widget.dart';
 import 'package:todo_app/common/widget/form/custom_text_form_field.dart';
 
@@ -168,12 +169,27 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 onChanged: (value) {
 
                 },
+              ),
+              const SizedBox(
+                height: kMedium,
+              ),
+
+              PrimaryButton(
+                text: 'SignUp',
+                isEnabled: true,
+                isLoading: false,
+                onPressed: _signUp,
               )
+
 
             ],
           ),
         ),
       ),
     );
+  }
+
+  void _signUp() {
+
   }
 }
