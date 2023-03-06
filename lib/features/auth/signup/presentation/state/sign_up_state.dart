@@ -11,7 +11,7 @@ class SignUpState with _$SignUpState {
     final bool isSignUp,
     @Default(false)
     final bool isLoading,
-    @Default(false)
+    @Default(true)
     final bool isObscure,
     @Default(false)
     final bool isTermsAndConditions,

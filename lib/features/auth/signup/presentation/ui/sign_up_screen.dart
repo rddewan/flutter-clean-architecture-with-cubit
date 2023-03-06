@@ -6,6 +6,9 @@ import 'package:todo_app/common/widget/check_box_widget.dart';
 import 'package:todo_app/common/widget/form/custom_text_form_field.dart';
 import 'package:todo_app/features/auth/signup/presentation/controller/sing_up_controller.dart';
 import 'package:todo_app/features/auth/signup/presentation/state/sign_up_state.dart';
+import 'package:todo_app/features/auth/signup/presentation/ui/widget/sign_up_button.dart';
+import 'package:todo_app/features/auth/signup/presentation/ui/widget/sign_up_checkbox.dart';
+import 'package:todo_app/features/auth/signup/presentation/ui/widget/sign_up_password_widget.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({Key? key}) : super(key: key);
@@ -48,6 +51,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
               listener: (context, state) {
                 
               },
+              buildWhen: (previous, current) => false,
               builder: (context, state) {
                 return Column(
                   children: [
@@ -100,65 +104,22 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     const SizedBox(
                       height: kMedium,
                     ),
-                    CustomTextFormField(
-                      controller: _passwordController,
+                    SignUpPasswordWidget(
                       labelText: 'Password',
                       hintText: 'Enter your password',
-                      keyboardType: TextInputType.visiblePassword,
-                      textInputAction: TextInputAction.next,
-                      isObscureText: context.watch<SignUpController>().state.isObscure,
-                      prefixIcon: IconButton(
-                        onPressed: () {
-                            context.read<SignUpController>().isObscure();
-                        }, 
-                        icon: context.watch<SignUpController>().state.isObscure ?
-                          const Icon(Icons.visibility_off)
-                          : const Icon(Icons.visibility),
-                      ),
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'password is empty';
-                        }
-                        return null;
-                      },
-                      onChanged: (value) {
-                        context.read<SignUpController>().setFormData(
-                          key: 'password', value: value,
-                        );
-                        return null;
-                      },
+                      validatorText: 'password is empty',
+                      passwordController: _passwordController,
                     ),
                     const SizedBox(
                       height: kMedium,
                     ),
-                    CustomTextFormField(
-                      controller: _confirmPasswordController,
+                    SignUpPasswordWidget(
                       labelText: 'Confirm Password',
                       hintText: 'Enter your confirm password',
-                      keyboardType: TextInputType.visiblePassword,
-                      textInputAction: TextInputAction.next,
-                      isObscureText: context.watch<SignUpController>().state.isObscure,
-                      prefixIcon: IconButton(
-                        onPressed: () {
-                            context.read<SignUpController>().isObscure();
-                        }, 
-                        icon: context.watch<SignUpController>().state.isObscure ?
-                          const Icon(Icons.visibility_off)
-                          : const Icon(Icons.visibility),
-                      ),
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'confirm password is empty';
-                        }
-                        return null;
-                      },
-                      onChanged: (value) {
-                        context.read<SignUpController>().setFormData(
-                          key: 'password_confirmation', value: value,
-                        );
-                        return null;
-                      },
+                      validatorText: 'confirm password is empty',
+                      passwordController: _confirmPasswordController,
                     ),
+                    
                     const SizedBox(
                       height: kMedium,
                     ),
@@ -187,33 +148,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       height: kMedium,
                     ),
         
-                    CheckboxWidget(
-                      title: 'Terms and conditions',
-                      subtitle: 'Please accept the terms and conditions',
-                      value: context.watch<SignUpController>().state.isTermsAndConditions,
-                      validator: (value) {
-                        if (value != null && !value) {
-                          return 'Please accept the terms and conditions';
-                        }
-                        return null;
-                      },
-                      onChanged: (value) {
-                        context.read<SignUpController>().setTermsAndConditions(
-                          value ?? false,
-                        );
-                      },
-                    ),
+                    const SignUpCheckBox(),
         
                     const SizedBox(
                       height: kMedium,
                     ),
-        
-                    PrimaryButton(
-                      text: 'SignUp',
-                      isEnabled: context.watch<SignUpController>().state.isLoading ? false : true,
-                      isLoading: context.watch<SignUpController>().state.isLoading,
-                      onPressed: _signUp,
-                    )
+
+                    SignUpButton(onPressed: _signUp)       
+                    
                   ],
                 );
               },
@@ -226,3 +168,4 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
   void _signUp() {}
 }
+

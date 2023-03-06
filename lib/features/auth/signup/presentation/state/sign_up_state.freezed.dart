@@ -162,7 +162,7 @@ class _$_SingUpState implements _SingUpState {
   const _$_SingUpState(
       {this.isSignUp = false,
       this.isLoading = false,
-      this.isObscure = false,
+      this.isObscure = true,
       this.isTermsAndConditions = false,
       final Map<String, dynamic> formData = const {},
       this.errorMsg})
