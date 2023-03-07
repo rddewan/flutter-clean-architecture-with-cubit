@@ -52,18 +52,16 @@ class _SignUpScreenState extends State<SignUpScreen> with DialogMixin {
             key: _formKey,
             child: BlocConsumer<SignUpController, SignUpState>(
               listenWhen: (previous, current) {
-                return current.isSignUp != previous.isSignUp 
-                  || current.errorMsg != previous.errorMsg;
+                return current.isSignUp != previous.isSignUp ||
+                  current.errorMsg != previous.errorMsg;
               },
-              listener: (context, state) {
+              listener: (context, state) {   
                 if (state.isSignUp) {
                   _showConfirmDialog();
-                }
-
+                }    
                 if (state.errorMsg != null) {
-                  _showSnackBar();
-
-                }
+                  _showSnackBar(state.errorMsg ?? 'Something went wrong.');
+                }         
                 
               },
               buildWhen: (previous, current) => false,
@@ -191,10 +189,10 @@ class _SignUpScreenState extends State<SignUpScreen> with DialogMixin {
     }
   }
 
-  void _showSnackBar() {
+  void _showSnackBar(String errorMsg) {
     ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Text('ToDo deleted successfully',)
+      SnackBar(
+        content: Text(errorMsg)
       ),
     );
   }
@@ -202,28 +200,29 @@ class _SignUpScreenState extends State<SignUpScreen> with DialogMixin {
   void _showConfirmDialog() {
     showConfirmDialog(
       context: context, 
-      title: 'Do you want to login', 
-      msg: 'You will be redirected to login page.', 
+      title: 'Do you want to login?', 
+      msg: 'You will be redirected to the login screen.', 
       btnYesText: 'YES', 
       btnNoText: 'NO', 
       onYesTap: () {
         // dismiss the dialog
-        final navigator = Navigator.of(context,rootNavigator: true);
+        final navigator = Navigator.of(context, rootNavigator: true);
         if (navigator.canPop()) {
           navigator.pop();
         }
         // navigate to login screen
-        context.go('login');
+        context.go('/login');
       }, 
-      onNoTap:() {
+      onNoTap: () {
         // dismiss the dialog
-        final navigator = Navigator.of(context,rootNavigator: true);
+        final navigator = Navigator.of(context, rootNavigator: true);
         if (navigator.canPop()) {
           navigator.pop();
         }
-
       },
     );
   }
+
+  
 }
 
