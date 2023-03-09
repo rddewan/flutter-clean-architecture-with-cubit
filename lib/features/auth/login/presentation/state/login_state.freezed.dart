@@ -18,7 +18,7 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$LoginState {
   bool get isLoading => throw _privateConstructorUsedError;
   bool get isLoggedIn => throw _privateConstructorUsedError;
-  bool get osObscure => throw _privateConstructorUsedError;
+  bool get isObscure => throw _privateConstructorUsedError;
   Map<String, dynamic> get formData => throw _privateConstructorUsedError;
   String? get errorMsg => throw _privateConstructorUsedError;
 
@@ -36,7 +36,7 @@ abstract class $LoginStateCopyWith<$Res> {
   $Res call(
       {bool isLoading,
       bool isLoggedIn,
-      bool osObscure,
+      bool isObscure,
       Map<String, dynamic> formData,
       String? errorMsg});
 }
@@ -56,7 +56,7 @@ class _$LoginStateCopyWithImpl<$Res, $Val extends LoginState>
   $Res call({
     Object? isLoading = null,
     Object? isLoggedIn = null,
-    Object? osObscure = null,
+    Object? isObscure = null,
     Object? formData = null,
     Object? errorMsg = freezed,
   }) {
@@ -69,9 +69,9 @@ class _$LoginStateCopyWithImpl<$Res, $Val extends LoginState>
           ? _value.isLoggedIn
           : isLoggedIn // ignore: cast_nullable_to_non_nullable
               as bool,
-      osObscure: null == osObscure
-          ? _value.osObscure
-          : osObscure // ignore: cast_nullable_to_non_nullable
+      isObscure: null == isObscure
+          ? _value.isObscure
+          : isObscure // ignore: cast_nullable_to_non_nullable
               as bool,
       formData: null == formData
           ? _value.formData
@@ -96,7 +96,7 @@ abstract class _$$_LoginStateCopyWith<$Res>
   $Res call(
       {bool isLoading,
       bool isLoggedIn,
-      bool osObscure,
+      bool isObscure,
       Map<String, dynamic> formData,
       String? errorMsg});
 }
@@ -114,7 +114,7 @@ class __$$_LoginStateCopyWithImpl<$Res>
   $Res call({
     Object? isLoading = null,
     Object? isLoggedIn = null,
-    Object? osObscure = null,
+    Object? isObscure = null,
     Object? formData = null,
     Object? errorMsg = freezed,
   }) {
@@ -127,9 +127,9 @@ class __$$_LoginStateCopyWithImpl<$Res>
           ? _value.isLoggedIn
           : isLoggedIn // ignore: cast_nullable_to_non_nullable
               as bool,
-      osObscure: null == osObscure
-          ? _value.osObscure
-          : osObscure // ignore: cast_nullable_to_non_nullable
+      isObscure: null == isObscure
+          ? _value.isObscure
+          : isObscure // ignore: cast_nullable_to_non_nullable
               as bool,
       formData: null == formData
           ? _value._formData
@@ -149,7 +149,7 @@ class _$_LoginState implements _LoginState {
   const _$_LoginState(
       {this.isLoading = false,
       this.isLoggedIn = false,
-      this.osObscure = false,
+      this.isObscure = false,
       final Map<String, dynamic> formData = const {},
       this.errorMsg})
       : _formData = formData;
@@ -162,7 +162,7 @@ class _$_LoginState implements _LoginState {
   final bool isLoggedIn;
   @override
   @JsonKey()
-  final bool osObscure;
+  final bool isObscure;
   final Map<String, dynamic> _formData;
   @override
   @JsonKey()
@@ -177,7 +177,7 @@ class _$_LoginState implements _LoginState {
 
   @override
   String toString() {
-    return 'LoginState(isLoading: $isLoading, isLoggedIn: $isLoggedIn, osObscure: $osObscure, formData: $formData, errorMsg: $errorMsg)';
+    return 'LoginState(isLoading: $isLoading, isLoggedIn: $isLoggedIn, isObscure: $isObscure, formData: $formData, errorMsg: $errorMsg)';
   }
 
   @override
@@ -189,15 +189,15 @@ class _$_LoginState implements _LoginState {
                 other.isLoading == isLoading) &&
             (identical(other.isLoggedIn, isLoggedIn) ||
                 other.isLoggedIn == isLoggedIn) &&
-            (identical(other.osObscure, osObscure) ||
-                other.osObscure == osObscure) &&
+            (identical(other.isObscure, isObscure) ||
+                other.isObscure == isObscure) &&
             const DeepCollectionEquality().equals(other._formData, _formData) &&
             (identical(other.errorMsg, errorMsg) ||
                 other.errorMsg == errorMsg));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, isLoading, isLoggedIn, osObscure,
+  int get hashCode => Object.hash(runtimeType, isLoading, isLoggedIn, isObscure,
       const DeepCollectionEquality().hash(_formData), errorMsg);
 
   @JsonKey(ignore: true)
@@ -211,7 +211,7 @@ abstract class _LoginState implements LoginState {
   const factory _LoginState(
       {final bool isLoading,
       final bool isLoggedIn,
-      final bool osObscure,
+      final bool isObscure,
       final Map<String, dynamic> formData,
       final String? errorMsg}) = _$_LoginState;
 
@@ -220,7 +220,7 @@ abstract class _LoginState implements LoginState {
   @override
   bool get isLoggedIn;
   @override
-  bool get osObscure;
+  bool get isObscure;
   @override
   Map<String, dynamic> get formData;
   @override
