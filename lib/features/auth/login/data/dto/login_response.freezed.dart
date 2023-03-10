@@ -22,8 +22,6 @@ LoginResponse _$LoginResponseFromJson(Map<String, dynamic> json) {
 mixin _$LoginResponse {
   @JsonKey(name: 'access_token')
   String get accessToken => throw _privateConstructorUsedError;
-  @JsonKey(name: 'token_id')
-  String get tokenId => throw _privateConstructorUsedError;
   @JsonKey(name: 'user_id')
   int get userId => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
@@ -43,7 +41,6 @@ abstract class $LoginResponseCopyWith<$Res> {
   @useResult
   $Res call(
       {@JsonKey(name: 'access_token') String accessToken,
-      @JsonKey(name: 'token_id') String tokenId,
       @JsonKey(name: 'user_id') int userId,
       String name,
       String email});
@@ -63,7 +60,6 @@ class _$LoginResponseCopyWithImpl<$Res, $Val extends LoginResponse>
   @override
   $Res call({
     Object? accessToken = null,
-    Object? tokenId = null,
     Object? userId = null,
     Object? name = null,
     Object? email = null,
@@ -72,10 +68,6 @@ class _$LoginResponseCopyWithImpl<$Res, $Val extends LoginResponse>
       accessToken: null == accessToken
           ? _value.accessToken
           : accessToken // ignore: cast_nullable_to_non_nullable
-              as String,
-      tokenId: null == tokenId
-          ? _value.tokenId
-          : tokenId // ignore: cast_nullable_to_non_nullable
               as String,
       userId: null == userId
           ? _value.userId
@@ -103,7 +95,6 @@ abstract class _$$_LoginResponseCopyWith<$Res>
   @useResult
   $Res call(
       {@JsonKey(name: 'access_token') String accessToken,
-      @JsonKey(name: 'token_id') String tokenId,
       @JsonKey(name: 'user_id') int userId,
       String name,
       String email});
@@ -121,7 +112,6 @@ class __$$_LoginResponseCopyWithImpl<$Res>
   @override
   $Res call({
     Object? accessToken = null,
-    Object? tokenId = null,
     Object? userId = null,
     Object? name = null,
     Object? email = null,
@@ -130,10 +120,6 @@ class __$$_LoginResponseCopyWithImpl<$Res>
       accessToken: null == accessToken
           ? _value.accessToken
           : accessToken // ignore: cast_nullable_to_non_nullable
-              as String,
-      tokenId: null == tokenId
-          ? _value.tokenId
-          : tokenId // ignore: cast_nullable_to_non_nullable
               as String,
       userId: null == userId
           ? _value.userId
@@ -156,7 +142,6 @@ class __$$_LoginResponseCopyWithImpl<$Res>
 class _$_LoginResponse implements _LoginResponse {
   const _$_LoginResponse(
       {@JsonKey(name: 'access_token') required this.accessToken,
-      @JsonKey(name: 'token_id') required this.tokenId,
       @JsonKey(name: 'user_id') required this.userId,
       required this.name,
       required this.email});
@@ -168,9 +153,6 @@ class _$_LoginResponse implements _LoginResponse {
   @JsonKey(name: 'access_token')
   final String accessToken;
   @override
-  @JsonKey(name: 'token_id')
-  final String tokenId;
-  @override
   @JsonKey(name: 'user_id')
   final int userId;
   @override
@@ -180,7 +162,7 @@ class _$_LoginResponse implements _LoginResponse {
 
   @override
   String toString() {
-    return 'LoginResponse(accessToken: $accessToken, tokenId: $tokenId, userId: $userId, name: $name, email: $email)';
+    return 'LoginResponse(accessToken: $accessToken, userId: $userId, name: $name, email: $email)';
   }
 
   @override
@@ -190,7 +172,6 @@ class _$_LoginResponse implements _LoginResponse {
             other is _$_LoginResponse &&
             (identical(other.accessToken, accessToken) ||
                 other.accessToken == accessToken) &&
-            (identical(other.tokenId, tokenId) || other.tokenId == tokenId) &&
             (identical(other.userId, userId) || other.userId == userId) &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.email, email) || other.email == email));
@@ -199,7 +180,7 @@ class _$_LoginResponse implements _LoginResponse {
   @JsonKey(ignore: true)
   @override
   int get hashCode =>
-      Object.hash(runtimeType, accessToken, tokenId, userId, name, email);
+      Object.hash(runtimeType, accessToken, userId, name, email);
 
   @JsonKey(ignore: true)
   @override
@@ -218,7 +199,6 @@ class _$_LoginResponse implements _LoginResponse {
 abstract class _LoginResponse implements LoginResponse {
   const factory _LoginResponse(
       {@JsonKey(name: 'access_token') required final String accessToken,
-      @JsonKey(name: 'token_id') required final String tokenId,
       @JsonKey(name: 'user_id') required final int userId,
       required final String name,
       required final String email}) = _$_LoginResponse;
@@ -229,9 +209,6 @@ abstract class _LoginResponse implements LoginResponse {
   @override
   @JsonKey(name: 'access_token')
   String get accessToken;
-  @override
-  @JsonKey(name: 'token_id')
-  String get tokenId;
   @override
   @JsonKey(name: 'user_id')
   int get userId;

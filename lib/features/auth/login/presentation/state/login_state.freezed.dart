@@ -149,7 +149,7 @@ class _$_LoginState implements _LoginState {
   const _$_LoginState(
       {this.isLoading = false,
       this.isLoggedIn = false,
-      this.isObscure = false,
+      this.isObscure = true,
       final Map<String, dynamic> formData = const {},
       this.errorMsg})
       : _formData = formData;

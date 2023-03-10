@@ -13,8 +13,6 @@ class LoginResponse with _$LoginResponse {
   const factory LoginResponse({
     @JsonKey(name: 'access_token')
     required String accessToken,
-    @JsonKey(name: 'token_id')
-    required String tokenId,
     @JsonKey(name: 'user_id')
     required int userId,
     required String name,
