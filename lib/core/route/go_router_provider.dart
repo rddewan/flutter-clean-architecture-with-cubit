@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:todo_app/core/route/route_name.dart';
 import 'package:todo_app/core/service_locator.dart';
+import 'package:todo_app/features/auth/login/presentation/controller/login_controller.dart';
+import 'package:todo_app/features/auth/login/presentation/ui/login_screen.dart';
 import 'package:todo_app/features/auth/signup/presentation/controller/sing_up_controller.dart';
 import 'package:todo_app/features/auth/signup/presentation/ui/sign_up_screen.dart';
 import 'package:todo_app/features/dashboard/presentation/ui/dashboard_screen.dart';
@@ -27,20 +29,36 @@ class GoRouterProvider {
   GoRouter goRouter() {
     return GoRouter(
         navigatorKey: _rootNavigatorKey,
-        initialLocation: '/signUp',
+        initialLocation: '/login',
         routes: [
           GoRoute(
-            path: '/signUp',
-            name: signUpRoute,
+            path: '/login',
+            name: loginRoute,
             builder: (context, state) {
               return BlocProvider(
-                create: (context) => getIt.get<SignUpController>(),
-                child: SignUpScreen(
+                create: (context) => getIt.get<LoginController>(),
+                child: LoginScreen(
                   key: state.pageKey,
                 ),
               );
             },
+            routes: [
+              GoRoute(
+                path: '/signUp',
+                name: signUpRoute,
+                builder: (context, state) {
+                  return BlocProvider(
+                    create: (context) => getIt.get<SignUpController>(),
+                    child: SignUpScreen(
+                      key: state.pageKey,
+                    ),
+                  );
+                },
+              ),
+            ]
+
           ),
+          
           ShellRoute(
               navigatorKey: _shellNavigatorKey,
               observers: [_shellRouteObserver],
