@@ -2,6 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:http/http.dart';
 import 'package:todo_app/core/route/go_router_provider.dart';
+import 'package:todo_app/features/auth/login/application/ilogin_service.dart';
+import 'package:todo_app/features/auth/login/application/login_service.dart';
+import 'package:todo_app/features/auth/login/data/api/ilogin_api_service.dart';
+import 'package:todo_app/features/auth/login/data/api/login_api_service.dart';
+import 'package:todo_app/features/auth/login/data/repository/ilogin_repository.dart';
+import 'package:todo_app/features/auth/login/data/repository/login_repository.dart';
+import 'package:todo_app/features/auth/login/presentation/controller/login_controller.dart';
+import 'package:todo_app/features/auth/login/presentation/state/login_state.dart';
 import 'package:todo_app/features/auth/signup/application/isign_up_service.dart';
 import 'package:todo_app/features/auth/signup/application/sign_up_service.dart';
 import 'package:todo_app/features/auth/signup/data/api/isign_up_api_service.dart';
@@ -43,5 +51,12 @@ void serviceLocatorInit() {
   // SingUp Controller
   getIt.registerFactory<SignUpController>(() => SignUpController(const SignUpState(),getIt<ISignUpService>()));
   
+  //Feature Login
+  getIt.registerLazySingleton<ILoginApiService>(() => LoginApiService(getIt<Client>()));
+  getIt.registerLazySingleton<ILoginRepository>(() => LoginRepository(getIt<ILoginApiService>()));
+  getIt.registerLazySingleton<ILoginService>(() => LoginService(getIt<ILoginRepository>()));
 
+  // SingUp Controller
+  getIt.registerFactory<LoginController>(() => LoginController(getIt.get<ILoginService>()));
+  
 }
